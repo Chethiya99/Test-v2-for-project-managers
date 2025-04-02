@@ -52,14 +52,31 @@ if 'selected_template' not in st.session_state:
 if 'trigger_rerun' not in st.session_state:
     st.session_state.trigger_rerun = False  # Track if a re-run is needed
 if 'custom_template_content' not in st.session_state:
-    st.session_state.custom_template_content = ""  # Store custom template content
+    # Initialize with default template content
+    default_template_path = "email_descriptions/email_task_description1.txt"
+    if os.path.exists(default_template_path):
+        with open(default_template_path, 'r') as file:
+            st.session_state.custom_template_content = file.read()
+    else:
+        st.session_state.custom_template_content = """Generate a personalized email for the merchant with the following details:
+        
+Merchant Name: {merchant_data['name']}
+Email: {merchant_data['email']}
+Business Type: {merchant_data['business_type']}
+        
+The email should:
+1. Be professional yet friendly
+2. Mention potential collaboration opportunities
+3. Be around 300 words
+4. Include a compelling subject line
+5. Have proper HTML formatting"""
 
 # Function to read the email task description from a text file
 def read_email_task_description(file_path):
     if os.path.exists(file_path):
         with open(file_path, 'r') as file:
             content = file.read()
-            st.session_state.custom_template_content = content  # Initialize with file content
+            st.session_state.custom_template_content = content  # Update with file content
             return content
     else:
         raise FileNotFoundError(f"The file {file_path} does not exist.")
