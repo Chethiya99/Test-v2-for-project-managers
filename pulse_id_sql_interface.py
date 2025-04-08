@@ -209,12 +209,12 @@ if st.session_state.selected_db and api_key and not st.session_state.db_initiali
         st.sidebar.error(f"Error: {str(e)}")
 
 # Custom Template Editor at the top of the main content
-st.markdown("### Email Template Editor", unsafe_allow_html=True)
-st.info("Edit the email template below. Your changes will be used when generating emails.")
+st.markdown("### Email promt Editor", unsafe_allow_html=True)
+st.info("Edit the email promt below. Your changes will be used when generating emails.")
 
 # Text area for editing the template content
 custom_template = st.text_area(
-    "Edit Email Template:",
+    "Edit Email promt:",
     value=st.session_state.custom_template_content,
     height=300,
     key="custom_template_editor"
